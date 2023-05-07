@@ -42,9 +42,24 @@ userSchema.methods.matchPassword = async function(enteredPassword){
   return await bcrypt.compare(enteredPassword , this.password)
 }
 
+/*
+A pre-save hook that is called before every time a user document is saved to the database, whether it's a new document being created or an existing document being updated.
+This hook checks whether the password field has been modified before saving. 
+If it has not been modified, it calls the next() middleware function (which is the Mongoose's built-in "save()" method which will save the updated document to the database). 
+If it has been modified, it generates a salt and hashes the password using bcrypt before saving it to the database.
+*/
+userSchema.pre('save' , async function (next){
+  if(!this.isModified('password')){
+    next()
+  }
+  const salt = await bcrypt.genSalt(10)
+  this.password = await bcrypt.hash(this.password , salt)
+})
+
 
 
 // Create a new Mongoose model named "User" using the userSchema object and associate it with a MongoDB collection named "users".
 const User = mongoose.model('User', userSchema)
 
 export default User
+
