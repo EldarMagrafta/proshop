@@ -5,6 +5,7 @@ import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import { productListReducer , productDetailsReducer } from './reducers/productReducers'
 import { cartReducer } from './reducers/cartReducers'
+import {userLoginReducer} from './reducers/userReducers'
 
 //This is JavaScript code that creates a Redux store, which is used to manage the state of an application
 
@@ -20,7 +21,9 @@ Each reducer checks if the action matches any of its cases, and if it does, the 
 const reducer = combineReducers({
     productList : productListReducer,
     productDetails : productDetailsReducer,
-    cart : cartReducer
+    cart : cartReducer,
+    userLogin : userLoginReducer
+
 })
 
 
@@ -32,8 +35,12 @@ When the user returns to the website, the data is retrieved from localStorage an
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? 
                                 JSON.parse(localStorage.getItem('cartItems')) : []
 
+const userInfoFromStorage = localStorage.getItem('userInfo') ? 
+                                JSON.parse(localStorage.getItem('cartItems')) : null
+                                
 const initialState = {
-    cart : {cartItems : cartItemsFromStorage}
+    cart : {cartItems : cartItemsFromStorage},
+    userLogin: {userInfo : userInfoFromStorage}
 }
 
 //the thunk middleware is added to the middleware array.
