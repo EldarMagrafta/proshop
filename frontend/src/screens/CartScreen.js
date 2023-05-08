@@ -17,6 +17,11 @@ const CartScreen = () => {
     const cart = useSelector(state => state.cart);
     const cartItems = cart.cartItems
 
+    let totalQty = 0;
+    for (let i = 0; i < cartItems.length; i++) {
+        totalQty += Number(cartItems[i].qty);
+    }
+
 
     const navigate = useNavigate();
 
@@ -99,7 +104,7 @@ const CartScreen = () => {
             <ListGroup variant='flush'>
               <ListGroup.Item>
                 <h2>
-                  Subtotal ({cartItems.reduce((acc,item) => acc+item.qty , 0)}) items
+                Subtotal ({totalQty}) items!
                 </h2>
                 ${cartItems.reduce((acc,item)=> acc + item.qty * item.price, 0).toFixed(2)}
               </ListGroup.Item>

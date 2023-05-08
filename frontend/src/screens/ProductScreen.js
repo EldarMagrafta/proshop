@@ -113,7 +113,7 @@ function ProductScreen() {
                       <Row>
                         <Col> Qty </Col>
                         <Col> 
-                          <Form.Control as='select' value={qty} onChange={e => setQty(e.target.value)}> 
+                          <Form.Control as='select' value={qty} onChange={e => setQty(Number(e.target.value))}> 
                             {
                               qtyArr.map(x => (<option key = {x} value={x}> {x} </option>))
                             }

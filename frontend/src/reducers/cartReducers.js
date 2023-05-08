@@ -1,6 +1,6 @@
 /*
-cartItems is a property of the state object that represents the current state of a shopping cart
-cartItems is array of objects. each object there has a property named "product" that described the electronic product itself
+cartItems is a property of the "cart" slice of the entire state that represents the current state of a shopping cart
+cartItems is array of objects. each object there has a property named "product" that holds the MongoDB id of this specific electronic product
 */
 export const cartReducer = (state = {cartItems: []}, action) =>{
     switch(action.type){
