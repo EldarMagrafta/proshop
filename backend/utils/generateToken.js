@@ -15,8 +15,8 @@ const generateToken = (id) => {
   const secretKey = process.env.JWT_SECRET;
 
   // The third argument to the jwt.sign() method is an options object.
-  // The expiresIn property is set to "30d", which means that the token will expire in 30 days.
-  const options = { expiresIn: "30d" };
+  // The expiresIn property is set to "25d", which means that the token will expire in 30 days.
+  const options = { expiresIn: "25d" };
 
   // The jwt.sign() method generates the JWT using the payload, secret key, and options.
   // The function returns the JWT string.
