@@ -29,6 +29,10 @@ app.get('/' , (req , res) =>{
 app.use('/api/products' , productRoutes)
 app.use('/api/users' , userRoutes)
 
+/*
+* The notFound function is a middleware function that handles requests for routes that do not exist by creating a new error object with a custom message indicating that the requested URL was not found.
+* It then sets the HTTP status code to 404 and passes the error object to the next middleware function in the chain using the next function.
+*/
 app.use(notFound)
 
 // Add the errorHandler to the middleware pipeline

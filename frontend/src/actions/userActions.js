@@ -14,6 +14,11 @@ export const login = (email, password) => async (dispatch) =>{
                 'Content-Type' : 'Application/json'
             }
         }
+        /*
+        "/api/users/login" is the endpoint URL for the HTTP request.
+        "loginCredentials" is the data to be sent as the request body.
+        "config" is an object containing request configuration options.
+        */
         const {data} = await axios.post('/api/users/login' , loginCredentials , config)
 
         dispatch({type: "USER_LOGIN_SUCCESS" , payload: data})
@@ -34,4 +39,42 @@ export const login = (email, password) => async (dispatch) =>{
 export const logout = () => (dispatch) =>{
     localStorage.removeItem('userInfo')
     dispatch({type : "USER_LOGOUT"})
+}
+
+
+export const register = (name, email, password) => async (dispatch) =>{
+    try{
+        dispatch({type: "USER_REGISTER_REQUEST"})
+
+        const RegistrationCredentials = {
+            name : name,
+            email: email,
+            password: password
+        }
+
+        const config = {
+            headers: {
+                'Content-Type' : 'Application/json'
+            }
+        }
+
+        const {data} = await axios.post('/api/users' , RegistrationCredentials , config)
+
+        dispatch({type: "USER_REGISTER_SUCCESS" , payload: data})
+
+        //so the user will be logged-in right after his registration
+        dispatch({type: "USER_LOGIN_SUCCESS" , payload: data})
+
+        
+        localStorage.setItem('userInfo' , JSON.stringify(data))
+    }
+
+    catch(error){
+        dispatch({type : 'USER_REGISTER_FAIL' ,
+        payload: error.response && error.response.data.message ?
+           error.response.data.message :
+           error.message
+       })
+
+    }
 }
