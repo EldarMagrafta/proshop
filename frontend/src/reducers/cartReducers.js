@@ -1,8 +1,8 @@
 /*
-cartItems is a property of the "cart" slice of the entire state that represents the current state of a shopping cart
+cartItems is a property of the "cart" slice of the entire state that represents the current state of a shopping cart.
 cartItems is array of objects. each object there has a property named "product" that holds the MongoDB id of this specific electronic product
 */
-export const cartReducer = (state = {cartItems: []}, action) =>{
+export const cartReducer = (state = {cartItems: [], shippingAddress: {}}, action) =>{ //the word "state" here refers to the cart slice of the redux store
     switch(action.type){
         case "CART_ADD_ITEM":
             const item = action.payload
@@ -19,6 +19,9 @@ export const cartReducer = (state = {cartItems: []}, action) =>{
         case "CART_REMOVE_ITEM":
             //for each item in cartItems, keep it if its id (x.product) is not equal to action.payload
             return {...state , cartItems: state.cartItems.filter(x => x.product !== action.payload)}
+
+        case "CART_SAVE_SHIPPING_ADDRESS":
+            return {...state , shippingAddress: action.payload}
 
         default:
                 return state

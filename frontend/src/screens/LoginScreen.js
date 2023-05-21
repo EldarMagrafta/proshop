@@ -12,16 +12,23 @@ const LoginScreen = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    //The search property specifically represents the query string part of the URL, including the ? character and any parameters and their values.
     const { search } = useLocation();
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const userLogin = useSelector(state => state.userLogin)
     const {loading , error, userInfo} = userLogin
-
-
+    /*
+    The URLSearchParams constructor get a String representig query-string and returns an instance of the URLSearchParams object,
+    which provides utility methods to work with query parameters in the URL.
+    get(name): This method returns the value of the first query parameter with the specified name.
+    */
     const sp = new URLSearchParams(search);
     const redirect = sp.get('redirect') || '/';
+    // console.log(redirect)
+    // console.log(`/register?redirect=${redirect}`)
 
     useEffect(() => {
         if(userInfo){
