@@ -38,7 +38,8 @@ function ProductScreen() {
   */
   const addToCartHandler = () =>{
     dispatch(addToCart(product._id, qty))
-    navigate('/cart')
+    alert("item added to cart (replace with toast later)")
+    // navigate('/cart')
 
   }
   
