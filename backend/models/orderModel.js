@@ -76,13 +76,3 @@ const orderSchema = mongoose.Schema(
 const Order = mongoose.model('Order', orderSchema)
 
 export default Order
-
-/*
-the orderItems field is an array of objects. Each object in the array represents a single item in the order.
-Each item object has 5 properties:
-1.name: a string representing the name of the item
-2.qty: a number representing the quantity of the item
-3.image: a string representing the URL of the image for the item
-4.price: a number representing the price of the item
-5.property: which is an object ID reference to another Mongoose schema called Product. This means that each item in the order is associated with a product, and that product is identified by its object ID.
- */ 

@@ -33,7 +33,7 @@ const protect = asyncHandler(async(req , res , next) => {
             const decoded = jwt.verify(token , process.env.JWT_SECRET)
             //find in the DB the user object associated with the JWT token, and assign it (excluding the password field) to "user" property of the request
             req.user = await User.findById(decoded.id).select('-password')
-            next() //gives the control to "getUserProfile" and passing "req" and "res" to it 
+            next() //gives the control to the next middleware in the chain and passing "req" and "res" to it 
         }
         catch(error){//If the JWT token is invalid or has expired
             console.log(error);

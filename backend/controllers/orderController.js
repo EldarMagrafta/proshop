@@ -18,7 +18,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
     }
     else{ //we want to create a new order in the DB
         const order = new Order({
-            user : req.user_id, //who this order belongs to
+            user : req.user._id, //who this order belongs to
             orderItems,
             shippingAddress,
             paymentMethod,
