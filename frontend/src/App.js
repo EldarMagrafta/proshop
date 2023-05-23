@@ -17,7 +17,7 @@ import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 function App() {
 
   return (
-      <>
+      <div id='root'>
           <HeaderComp/>
   
           <main className="py-3">
@@ -37,7 +37,7 @@ function App() {
           
           </main>
           <FooterComp/>
-      </>
+      </div>
     )
 }
 

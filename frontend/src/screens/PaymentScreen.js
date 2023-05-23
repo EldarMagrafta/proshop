@@ -20,8 +20,8 @@ const PaymentScreen = () => {
     navigate('/shipping')
   }
 
-//   const userLogin = useSelector(state => state.userLogin)
-//   const {userInfo} = userLogin
+  const userLogin = useSelector(state => state.userLogin)
+  const {userInfo} = userLogin
 
 //   useEffect(() => {
 //     if (!userInfo) {
@@ -42,7 +42,9 @@ const PaymentScreen = () => {
 
   return (
     <FormContainerComp>
-      <CheckOutStepsComp step1={true} step2={true} step3={true} />
+      
+      <CheckOutStepsComp step1 = {userInfo ? false : true} step2={true} step3={true} step4={shippingAddress !== null && shippingAddress.address}/>
+
       <h1>Payment Method</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group>

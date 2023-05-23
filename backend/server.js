@@ -7,6 +7,8 @@ import connectDB from './config/db.js';
 // import products from './data/products.js';
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
+
 
 
 // Load environment variables from a ".env" file into process.env making them available to the Node.js application
@@ -28,6 +30,7 @@ app.get('/' , (req , res) =>{
 
 app.use('/api/products' , productRoutes)
 app.use('/api/users' , userRoutes)
+app.use('/api/orders' , orderRoutes)
 
 /*
 * The notFound function is a middleware function that handles requests for routes that do not exist by creating a new error object with a custom message indicating that the requested URL was not found.

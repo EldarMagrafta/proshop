@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import CheckOutStepsComp from '../components/CheckOutStepsComp.js'
 import MessageComp from '../components/MessageComp.js'
 import { addToCart,removeFromCart } from '../actions/cartActions'
+import '../index.css'
 
  
 
@@ -15,6 +16,9 @@ const PlaceOrderScreen = () => {
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
     const paymentMethod = cart.paymentMethod
+
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
 
     const addDecimals = (num) =>{
         return (Math.round(num * 100)/100).toFixed(2)
@@ -35,8 +39,8 @@ const PlaceOrderScreen = () => {
 
 
   return (
-    <>
-        <CheckOutStepsComp step1={true} step2={true} step3={true} step4={true}/>
+    <div>
+        <CheckOutStepsComp step1 = {userInfo ? false : true} step2={true} step3={true} step4={true}/>
         <Row>
             <Col md={8}>
                 <ListGroup variant='flush'>
@@ -52,7 +56,7 @@ const PlaceOrderScreen = () => {
                     </ListGroup.Item>
 
                     <ListGroup.Item>
-                        <h2>Payment Method</h2>
+                        <h2>Payment Methods</h2>
                         {
                         paymentMethod === 'PayPal' && <Image src= "/images/paypal.png" alt='PayPal' className='paypal-img' />
                         }
@@ -154,7 +158,7 @@ const PlaceOrderScreen = () => {
 
 
         </Row>
-    </>
+    </div>
   )
 }
 

@@ -4,6 +4,7 @@ import { useDispatch , useSelector} from 'react-redux'
 import { Row, Col , ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import MessageComp from '../components/MessageComp'
 import { addToCart , removeFromCart } from '../actions/cartActions'
+import CheckOutStepsComp from '../components/CheckOutStepsComp'
 
 
 const CartScreen = () => {
@@ -15,7 +16,10 @@ const CartScreen = () => {
     // const qty = new URLSearchParams(location.search).get('qty');
 
     const cart = useSelector(state => state.cart);
-    const cartItems = cart.cartItems
+    const { cartItems, shippingAddress } = cart
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
 
     let totalQty = 0;
     for (let i = 0; i < cartItems.length; i++) {
@@ -49,76 +53,92 @@ const CartScreen = () => {
 
       
     return (
-      <Row>
-        <Col md={8}>
-          <h1>Shopping Cart!!</h1>
-          {
-            cartItems.length === 0 ? <MessageComp>Your cart is empty <Link to = "/">Go Back</Link></MessageComp> :
-                                     (
-                                      <ListGroup variant = "flush">
-                                        {
-                                        //each "item" is a object with the fields: product, name, image, price, countInStock and qty
-                                        cartItems.map(item =>
-                                          <ListGroup.Item key={item.product}>
-                                            <Row>
-                                              <Col md={3}>
-                                                <Image src={item.image} alt={item.name} fluid rounded/>
-                                              </Col>
+      <>
+        <CheckOutStepsComp step1 = {userInfo ? false : true}
+            step2={
+            shippingAddress !== null && shippingAddress.address && userInfo
+            }
 
-                                              <Col md={3}>
-                                                <Link to={`/product/${item.product}`}>{item.name} </Link>
-                                              </Col>
+            step3={
+              shippingAddress !== null && shippingAddress.address && userInfo
+            }
 
-                                              <Col md={2}>
-                                                ${item.price}
-                                              </Col>
+            step4={
+              shippingAddress !== null && shippingAddress.address && userInfo
+            }
+          />
 
-                                              {/* CHANGE THE QUANTITY OF SELECTED PRODUCT */}
-                                              <Col md={2}>
-                                                {/* here item.product is actually the mongoDB id of the item */}
-                                                <Form.Control as='select' value={item.qty} title="change amount" onChange={e => dispatch(addToCart(item.product, Number(e.target.value)))}> 
-                                                {
-                                                  [...Array(item.countInStock)].map((x, i) => 
-                                                    <option key={i + 1} value={i + 1}>{i + 1}</option>)
-                                                }
-                                                </Form.Control> 
-                                              </Col>
+        <Row>
+          <Col md={8}>
+            <h1>Shopping Cart!!</h1>
+            {
+              cartItems.length === 0 ? <MessageComp>Your cart is empty <Link to = "/">Go Back</Link></MessageComp> :
+                                      (
+                                        <ListGroup variant = "flush">
+                                          {
+                                          //each "item" is a object with the fields: product, name, image, price, countInStock and qty
+                                          cartItems.map(item =>
+                                            <ListGroup.Item key={item.product}>
+                                              <Row>
+                                                <Col md={3}>
+                                                  <Image src={item.image} alt={item.name} fluid rounded/>
+                                                </Col>
 
-                                              <Col md={2}>
-                                                <Button type = "button" title="Remove from cart" variant="light" onClick={() => removeFromCartHandler(item.product)}>
-                                                <i className='fas fa-trash'></i>
-                                                </Button>
-                                              </Col>
+                                                <Col md={3}>
+                                                  <Link to={`/product/${item.product}`}>{item.name} </Link>
+                                                </Col>
 
-                                            </Row>
-                                                              
-                                          </ListGroup.Item>)
-                                        }
-                                      </ListGroup>
-                                     )
-          }
-        </Col>
+                                                <Col md={2}>
+                                                  ${item.price}
+                                                </Col>
 
-        <Col md={4}>
-          <Card>
-            <ListGroup variant='flush'>
-              <ListGroup.Item>
-                <h2>
-                Subtotal ({totalQty}) items!
-                </h2>
-                ${cartItems.reduce((acc,item)=> acc + item.qty * item.price, 0).toFixed(2)}
-              </ListGroup.Item>
+                                                {/* CHANGE THE QUANTITY OF SELECTED PRODUCT */}
+                                                <Col md={2}>
+                                                  {/* here item.product is actually the mongoDB id of the item */}
+                                                  <Form.Control as='select' value={item.qty} title="change amount" onChange={e => dispatch(addToCart(item.product, Number(e.target.value)))}> 
+                                                  {
+                                                    [...Array(item.countInStock)].map((x, i) => 
+                                                      <option key={i + 1} value={i + 1}>{i + 1}</option>)
+                                                  }
+                                                  </Form.Control> 
+                                                </Col>
 
-              <ListGroup.Item>
-                <Button type="button" className='btn-block' disabled={cartItems.length===0} onClick={checkoutHandler}>
-                  Proceed to checkout
-                </Button>
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
-        </Col>
+                                                <Col md={2}>
+                                                  <Button type = "button" title="Remove from cart" variant="light" onClick={() => removeFromCartHandler(item.product)}>
+                                                  <i className='fas fa-trash'></i>
+                                                  </Button>
+                                                </Col>
 
-      </Row>
+                                              </Row>
+                                                                
+                                            </ListGroup.Item>)
+                                          }
+                                        </ListGroup>
+                                      )
+            }
+          </Col>
+
+          <Col md={4}>
+            <Card>
+              <ListGroup variant='flush'>
+                <ListGroup.Item>
+                  <h2>
+                  Subtotal ({totalQty}) items!
+                  </h2>
+                  ${cartItems.reduce((acc,item)=> acc + item.qty * item.price, 0).toFixed(2)}
+                </ListGroup.Item>
+
+                <ListGroup.Item>
+                  <Button type="button" className='btn-block' disabled={cartItems.length===0} onClick={checkoutHandler}>
+                    Proceed to checkout
+                  </Button>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card>
+          </Col>
+
+        </Row>
+      </>
     )
   }
 

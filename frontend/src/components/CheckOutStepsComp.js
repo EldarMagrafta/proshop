@@ -28,7 +28,7 @@ const CheckOutStepsComp = (props) => {
             }
         </Nav.Item>
 
-        <Nav.Item>
+        {/* <Nav.Item>
             {
             step3 ? (<LinkContainer to='/payment'>
                         <Nav.Link>Payment</Nav.Link>
@@ -36,7 +36,7 @@ const CheckOutStepsComp = (props) => {
                      :
                      <Nav.Link disabled>Payment</Nav.Link>
             }
-        </Nav.Item>
+        </Nav.Item> */}
 
         <Nav.Item>
             {

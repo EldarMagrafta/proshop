@@ -20,15 +20,38 @@ h2{
   margin: 0.1rem;
 } */
 
-/* main * {
-  background-color: darkgrey;
-}
-main {
-  min-height: 80vh;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: darkgrey;
+
+/* main {
+
+  background-color: rgb(214, 219, 221);
+}  */
+
+/* body {
+  background-color: rgb(214, 219, 221);
 } */
+
+.pink-background {
+  background-color: pink;
+}
+
+.footer {
+  background-color: #343a40; /* Replace with your desired background color */
+  color: white; /* Set text color to white or appropriate contrast color */
+  height: 60px; /* Adjust the height as needed */
+  padding: 10px 0; /* Adjust the top and bottom padding as needed */
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+}

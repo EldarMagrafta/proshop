@@ -13,10 +13,13 @@ const ShippingScreen = () => {
   const cart = useSelector(state => state.cart)
   const {shippingAddress} = cart
 
-  const [address, setAddress] = useState(shippingAddress.address)
-  const [city, setCity] = useState(shippingAddress.city)
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
-  const [country, setCountry] = useState(shippingAddress.country)
+  const userLogin = useSelector(state => state.userLogin)
+  const {userInfo} = userLogin
+
+  const [address, setAddress] = useState(shippingAddress.address || '')
+  const [city, setCity] = useState(shippingAddress.city || '')
+  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || '')
+  const [country, setCountry] = useState(shippingAddress.country || '')
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -24,7 +27,7 @@ const ShippingScreen = () => {
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(saveShippingAddress({address , city, postalCode, country}))
-    navigate('/payment')
+    navigate('/placeorder')
 
   }
 
@@ -32,7 +35,11 @@ const ShippingScreen = () => {
   return (
 
     <FormContainerComp>
-      <CheckOutStepsComp step1={true} step2={true}/>
+
+      <CheckOutStepsComp step1={userInfo ? false : true} step2={true} 
+      step3={shippingAddress !== null && shippingAddress.address}
+      step4={shippingAddress !== null && shippingAddress.address}/>
+
       <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='address'>

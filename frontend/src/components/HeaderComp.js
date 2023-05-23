@@ -3,6 +3,8 @@ import {useDispatch, useSelector} from 'react-redux'
 import {LinkContainer} from 'react-router-bootstrap'
 import {Container, Nav, Navbar , NavDropdown} from 'react-bootstrap'
 import { logout } from '../actions/userActions.js'
+import { useNavigate } from 'react-router-dom'
+import logo from '../assets/logo.png'
 
 
 
@@ -12,11 +14,12 @@ import { logout } from '../actions/userActions.js'
 function HeaderComp() {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const userLogin = useSelector(state => state.userLogin)
   const {userInfo} = userLogin
 
   const logoutHandler = () => {
-    dispatch(logout())
+    dispatch(logout(navigate)) // Pass the navigate function to the logout action creator
   }
 
   return (
@@ -24,9 +27,14 @@ function HeaderComp() {
       <Navbar bg="dark" variant='dark' expand="lg" collapseOnSelect>
       <Container>
 
-        <LinkContainer to = '/'>
-            <Navbar.Brand>MagraftaMobile</Navbar.Brand>
+
+        <LinkContainer to='/'>
+          <Navbar.Brand className="d-flex flex-column align-items-center">
+            <img src={logo} alt='Logo' style={{ borderRadius: '100%', width: '50px', height: 'auto' }} className='logo-img' />
+            <span style={{ marginTop: '0.5rem' }}>Magrafta Mobile</span>
+          </Navbar.Brand>
         </LinkContainer>
+
         
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 

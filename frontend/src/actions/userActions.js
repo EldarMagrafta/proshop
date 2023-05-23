@@ -36,10 +36,11 @@ export const login = (email, password) => async (dispatch) =>{
     }
 }
 
-export const logout = () => (dispatch) =>{
+export const logout = (navigate) => (dispatch) =>{
     localStorage.removeItem('userInfo')
     dispatch({ type: "USER_DETAILS_RESET" })
     dispatch({type : "USER_LOGOUT"})
+    navigate('/') //after logout, move user to homepage
 }
 
 
