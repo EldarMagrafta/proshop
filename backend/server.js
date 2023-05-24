@@ -1,3 +1,5 @@
+//The "server.js" file is the main entry point of your Node.js application.
+
 // Import the Express.js module and assign it to the constant variable 'express'
 import express from 'express';
 import dotenv from 'dotenv';
@@ -31,6 +33,8 @@ app.get('/' , (req , res) =>{
 app.use('/api/products' , productRoutes)
 app.use('/api/users' , userRoutes)
 app.use('/api/orders' , orderRoutes)
+
+app.get('/api/config/paypal' , (req,res) => res.send(process.env.PAYPAL_CLIENT_ID))
 
 /*
 * The notFound function is a middleware function that handles requests for routes that do not exist by creating a new error object with a custom message indicating that the requested URL was not found.
