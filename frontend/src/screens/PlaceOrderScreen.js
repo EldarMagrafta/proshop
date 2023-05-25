@@ -35,11 +35,34 @@ const PlaceOrderScreen = () => {
     const orderCreate = useSelector(state => state.orderCreate)
     const {order, success, error} = orderCreate
 
-    useEffect(() =>{
-        if(success){
-            navigate(`/order/${order._id}`)
+    // useEffect(() =>{
+    //     if(success){
+    //         navigate(`/order/${order._id}`)
+    //     }
+    // }, [navigate, success])
+
+    // useEffect(() => {
+    //     if (!userInfo) {
+    //       navigate('/cart')
+    //     }
+    
+    //     if (cart.cartItems.length === 0) {
+    //       navigate('/')
+    //     }
+    
+    //     if (success) {
+    //      navigate(`/order/${order._id}`)
+    //     }
+    //   }, [navigate, userInfo, success, order, cart])
+    
+    useEffect(() => {
+        if (success) {
+          navigate(`/order/${order._id}`)
+          dispatch({ type: "USER_DETAILS_RESET" })
+          dispatch({ type: "ORDER_CREATE_RESET" })
         }
-    }, [navigate, success])
+        // eslint-disable-next-line
+      }, [navigate, success])
 
     const placeOrderHandler = () =>{
         const orderInfo = {
@@ -84,44 +107,44 @@ const PlaceOrderScreen = () => {
                         <h2>Order Items</h2>
                         {
                             cart.cartItems.length === 0 ? <MessageComp>Your cart is empty</MessageComp> :
-                                                         (<ListGroup variant='flush'>
-                                                            {
-                                                                cart.cartItems.map((item,index) => (
-                                                                    <ListGroup.Item key={index}>
-                                                                        <Row>
-                                                                            <Col md={2}>
-                                                                                <Image src={item.image} alt={item.name} fluid rounded></Image>
-                                                                            </Col>
+                            (<ListGroup variant='flush'>
+                            {
+                                cart.cartItems.map((item,index) => (
+                                    <ListGroup.Item key={index}>
+                                        <Row>
+                                            <Col md={2}>
+                                                <Image src={item.image} alt={item.name} fluid rounded></Image>
+                                            </Col>
 
-                                                                            <Col>
-                                                                                <Link to={`/product/${item.product}`}>
-                                                                                    {item.name}
-                                                                                </Link>
-                                                                            </Col>
+                                            <Col>
+                                                <Link to={`/product/${item.product}`}>
+                                                    {item.name}
+                                                </Link>
+                                            </Col>
 
-                                                                            <Col md={4}>
-                                                                                {item.qty} x ${item.price} = ${(item.qty * item.price).toFixed(2)}
-                                                                            </Col>
+                                            <Col md={4}>
+                                                {item.qty} x ${item.price} = ${(item.qty * item.price).toFixed(2)}
+                                            </Col>
 
-                                                                            <Col md={2}>
-                                                                                <Form.Control as='select' value={item.qty} onChange={(e) => {dispatch(addToCart(item.product, Number(e.target.value)))}}>
-                                                                                    {
-                                                                                    [...Array(item.countInStock)].map((x, i) => <option key={i + 1} value={i + 1}>{i + 1}</option>)
-                                                                                    }
-                                                                               </Form.Control> 
-                                                                            </Col>
+                                            <Col md={2}>
+                                                <Form.Control as='select' value={item.qty} onChange={(e) => {dispatch(addToCart(item.product, Number(e.target.value)))}}>
+                                                    {
+                                                    [...Array(item.countInStock)].map((x, i) => <option key={i + 1} value={i + 1}>{i + 1}</option>)
+                                                    }
+                                                </Form.Control> 
+                                            </Col>
 
-                                                                            <Col md={2}>
-                                                                                <Button type = "button" title="Remove from cart" variant="light" onClick={() => dispatch(removeFromCart(item.product))}>
-                                                                                <i className='fas fa-trash'></i>
-                                                                                </Button>
-                                                                            </Col>
+                                            <Col md={2}>
+                                                <Button type = "button" title="Remove from cart" variant="light" onClick={() => dispatch(removeFromCart(item.product))}>
+                                                <i className='fas fa-trash'></i>
+                                                </Button>
+                                            </Col>
 
-                                                                        </Row>
-                                                                    </ListGroup.Item>
-                                                                ))
-                                                            }
-                                                         </ListGroup>)   
+                                        </Row>
+                                    </ListGroup.Item>
+                                ))
+                            }
+                            </ListGroup>)   
                         
                         }
                       
