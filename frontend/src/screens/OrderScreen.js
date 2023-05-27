@@ -44,6 +44,8 @@ const OrderScreen = () => {
     const clientId = axiosResponse.data;
     const script = document.createElement('script')
     script.type = 'text/javascript'
+    //This URL is a URL of script that loads the PayPal JavaScript SDK.
+    //When you include this script in your web page, it will load the PayPal JavaScript SDK from PayPal's servers and make it available for use in your application
     script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
     script.async = true
     script.onload = () => {

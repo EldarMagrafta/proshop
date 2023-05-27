@@ -6,7 +6,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import { productListReducer , productDetailsReducer } from './reducers/productReducers.js'
 import { cartReducer } from './reducers/cartReducers.js'
 import {userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer} from './reducers/userReducers.js'
-import {orderCreateReducer, orderDetailsReducer, orderPayReducer} from './reducers/orderReducers.js'
+import {orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListMyreducer} from './reducers/orderReducers.js'
 
 //This is JavaScript code that creates a Redux store, which is used to manage the state of an application
 
@@ -30,6 +30,8 @@ const reducer = combineReducers({
     orderCreate: orderCreateReducer,
     orderDetails: orderDetailsReducer,
     orderPay: orderPayReducer,
+    orderListMy: orderListMyreducer,
+    
 })
 
 

@@ -4,12 +4,8 @@ import { getProducts , getProductById } from '../controllers/productController.j
 const router = express.Router();
 
 
-
+//URL starts with '/api/products'
 router.route('/').get(getProducts)
 router.route('/:id').get(getProductById)
-
-// router.get('/' ,getProducts)
-// router.get('/:id' ,getProductById)
-
 
 export default router

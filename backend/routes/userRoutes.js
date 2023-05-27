@@ -4,9 +4,10 @@ import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
+//URL starts with '/api/users'
 router.route('/').post(registerUser)
-
 router.post('/login' ,authUser)
+
 
 /*
 A GET request to '/api/users/profile' is typically made when a user wants to view their own profile details. 

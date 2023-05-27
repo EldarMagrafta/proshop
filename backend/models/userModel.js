@@ -59,7 +59,7 @@ userSchema.pre('save' , async function (next){
 
 
 // Create a new Mongoose model named "User" using the userSchema object and associate it with a MongoDB collection named "users".
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema, 'users')
 
 export default User
 

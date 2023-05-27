@@ -9,10 +9,10 @@ const NoticeComp = () => {
         <strong>You can "pay" with PayPal using the following credentials:</strong><br/><br/>
         <p>
           <strong><u>Email:</u></strong> <br />
-          <small>sb-qug4m5128755@personal.example.com</small>
+          <small>exampleUser1@gmail.com</small>
           <br />
           <strong><u>Password:</u></strong> <br />
-          <small>a/sA@o4G</small>
+          <small>12345678</small>
         </p>
       </div>
     </ListGroup.Item>
