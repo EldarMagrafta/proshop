@@ -38,8 +38,9 @@ export const login = (email, password) => async (dispatch) =>{
 
 export const logout = (navigate) => (dispatch) =>{
     localStorage.removeItem('userInfo')
-    dispatch({ type: "USER_DETAILS_RESET" })
     dispatch({type : "USER_LOGOUT"})
+    dispatch({ type: "USER_DETAILS_RESET" })
+    dispatch({type : "ORDER_LIST_MY_RESET"})
     navigate('/') //after logout, move user to homepage
 }
 
@@ -92,7 +93,7 @@ export const getUserDetails = (id) => async (dispatch, getState) =>{
             headers: {
                 'Content-Type' : 'application/json',
                 'Authorization' : `Bearer ${userInfo.token}`
-            },
+            }
         }
 
         const {data} = await axios.get(`/api/users/${id}`, config)

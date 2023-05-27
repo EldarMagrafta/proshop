@@ -6,7 +6,7 @@ const router = express.Router();
 
 //URL starts with '/api/users'
 router.route('/').post(registerUser)
-router.post('/login' ,authUser)
+router.route('/login').post(authUser);
 
 
 /*

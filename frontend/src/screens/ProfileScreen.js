@@ -39,21 +39,25 @@ const ProfileScreen = () => {
     // const isDisabled = !(name && email && password && confirmPassword);
 
     useEffect(() => {
+        // console.log("USE EFFECT ENTRANCE")
         if(!userInfo){ //if the user is not logged-in, redirect the page to login page
             navigate('/login');
         }
-        else{ //if the user is logged-in
-            if(!user || !user.name){
+        else{ //if the user is logged-in and this is the first entrance to www.magraftamobile.com/profile
+            if(!user || !user.name || success){
+                // console.log("GOGOGOGGOG")
+                dispatch({ type: "USER_UPDATE_PROFILE_RESET" })
                 dispatch(getUserDetails('profile'))
                 dispatch(listMyOrders())
             }
             else{
+                // console.log("DODODO")
                 setName(user.name)
                 setEmail(user.email)
             }
 
         }
-    }, [dispatch, navigate, userInfo, user])
+    }, [dispatch, navigate, userInfo, user, success])
 
 
     const submitHandler = (e) =>{
