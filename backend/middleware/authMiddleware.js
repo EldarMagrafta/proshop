@@ -22,6 +22,8 @@ what is the decoded token payload?
 In JSON Web Token (JWT), the token is comprised of three parts: the header, the payload, and the signature.
 The decoded token payload is the second part of the JWT which contains the actual data that is being transmitted. It is typically a JSON object that contains information about the user or entity that the token represents, such as user ID, username, or role.
 */
+
+//This middleware ensures that only authenticated users can access the protected routes.
 const protect = asyncHandler(async(req , res , next) => {
     let token
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){ //if there is a token
@@ -45,7 +47,20 @@ const protect = asyncHandler(async(req , res , next) => {
         res.status(401)
         throw new Error("Not authorized , no token")
     }
-
 })
 
-export {protect}
+/*
+This middleware ensures that only users with administrative privileges can access certain routes or perform certain actions.
+It provides an additional layer of authorization on top of authentication.
+*/
+const admin = (req, res, next) =>{
+    if(req.user && req.user.isAdmin){
+        next()
+    }
+    else{
+        res.status(401)
+        throw new Error('Not Authorized As An Admin')
+    }
+}
+
+export {protect, admin}
