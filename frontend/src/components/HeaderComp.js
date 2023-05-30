@@ -53,11 +53,24 @@ function HeaderComp() {
                </NavDropdown>
             )
             : 
-            <LinkContainer to='/login'>
+            (<LinkContainer to='/login'>
                   <Nav.Link><i className='fas fa-user'></i> Sign In </Nav.Link>
-               </LinkContainer>}
-            
-            
+               </LinkContainer>)}
+            {
+              userInfo && userInfo.isAdmin && 
+              (<NavDropdown title='Admin' id='adminmenu'>
+                  <LinkContainer to='/admin/userlist'>
+                     <NavDropdown.Item><i className="fas fa-user"></i> Users </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/productlist'>
+                     <NavDropdown.Item><i className="fas fa-user"></i> Products </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderlist'>
+                     <NavDropdown.Item><i className="fas fa-user"></i> Orders </NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )
+            }
 
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1"> Action </NavDropdown.Item>
