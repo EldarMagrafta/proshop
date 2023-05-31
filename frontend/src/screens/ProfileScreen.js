@@ -40,12 +40,12 @@ const ProfileScreen = () => {
       navigate('/login');
     } else {
       if (!user || !user.name || success) {
-        console.log("if2")
+        // console.log("if2")
         dispatch({ type: 'USER_UPDATE_PROFILE_RESET' });
         dispatch(getUserDetails('profile'));
         dispatch(listMyOrders());
       } else {
-        console.log("else1")
+        // console.log("else1")
         setName(user.name);
         setEmail(user.email);
       }

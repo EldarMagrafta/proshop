@@ -24,7 +24,9 @@ const RegisterScreen = () => {
     const userRegister = useSelector(state => state.userRegister)
     const {loading , error, userInfo} = userRegister
 
-
+    /* these lines extract the value of the redirect parameter from the URL query string, which is later used for redirection after a successful user registration. 
+    If the redirect parameter is not provided, the default value of '/' is used.
+    */
     const sp = new URLSearchParams(search);
     const redirect = sp.get('redirect') || '/';
 
