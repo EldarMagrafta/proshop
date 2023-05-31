@@ -38,9 +38,13 @@ export const login = (email, password) => async (dispatch) =>{
 
 export const logout = (navigate) => (dispatch) =>{
     localStorage.removeItem('userInfo')
-    dispatch({type : "USER_LOGOUT"})
-    dispatch({ type: "USER_DETAILS_RESET" })
-    dispatch({type : "ORDER_LIST_MY_RESET"})
+    dispatch({ type : "USER_LOGOUT"})
+    dispatch({ type: "USER_DETAILS_RESET"})
+    dispatch({ type : "ORDER_LIST_MY_RESET"})
+    dispatch({ type: "CART_CLEAR_SHIPPING_ADDRESS"})
+    dispatch({ type: "USER_LIST_RESET" })
+    dispatch({ type: "USER_REGISTER_RESET" })
+
     navigate('/') //after logout, move user to homepage
 }
 
@@ -163,6 +167,33 @@ export const listUsers = () => async (dispatch, getState) =>{
     }
     catch(error){
         dispatch({type : "USER_LIST_FAIL" ,
+        payload: error.response && error.response.data.message ?
+           error.response.data.message :
+           error.message
+       })
+    }
+}
+
+export const deleteUser = (id) => async (dispatch, getState) =>{
+    try{
+        dispatch({type: "USER_DELETE_REQUEST"})
+
+        const userLogin = getState().userLogin;
+        const userInfo = userLogin.userInfo;
+
+        const config = {
+            headers: {
+                'Authorization' : `Bearer ${userInfo.token}`
+            }
+        }
+
+        const {data} = await axios.delete(`/api/users/${id}`, config)
+
+        dispatch({type: "USER_DELETE_SUCCESS"})
+
+    }
+    catch(error){
+        dispatch({type : "USER_DELETE_FAIL" ,
         payload: error.response && error.response.data.message ?
            error.response.data.message :
            error.message

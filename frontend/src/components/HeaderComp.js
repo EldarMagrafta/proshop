@@ -15,6 +15,7 @@ function HeaderComp() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const {cartItems} = useSelector(state => state.cart)
   const userLogin = useSelector(state => state.userLogin)
   const {userInfo} = userLogin
 
@@ -42,7 +43,12 @@ function HeaderComp() {
           <Nav className="ml-auto">
 
             <LinkContainer to='/cart'>
-                <Nav.Link><i className='fas fa-shopping-cart'></i> Cart </Nav.Link>
+                <Nav.Link>
+                  <i className='fas fa-shopping-cart'></i> Cart 
+                  {/* show the number of items in the cart */}
+                  {cartItems.length > 0 &&
+                    ` (${cartItems.reduce((acc, item) => acc + Number(item.qty),0)})`}
+                </Nav.Link>
             </LinkContainer>
             {userInfo ?
               (<NavDropdown title={userInfo.name} id='username'>

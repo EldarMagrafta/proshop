@@ -5,23 +5,46 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import MessageComp from '../components/MessageComp.js'
 import LoaderComp from '../components/LoaderComp.js'
-import { listUsers } from '../actions/userActions.js'
+import { listUsers, deleteUser } from '../actions/userActions.js'
+import { useNavigate } from 'react-router-dom'
 
 
 function UserListScreen() {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const userList = useSelector(state=>state.userList)
     const {loading, error, users} = userList
 
-    useEffect(()=> {
-        dispatch(listUsers())
-    }, [dispatch])
+    const userLogin = useSelector(state=>state.userLogin)
+    const {userInfo} = userLogin
 
-    const deleteHandler = (id)=>{
-        console.log('delete')
-    }
+    const userDelete = useSelector(state=>state.userDelete)
+    const loadingDelete = userDelete.loading;
+    const successDelete = userDelete.success;
+    const errorDelete = userDelete.error;
+    
+
+    useEffect(()=> {
+        //if the loogged-in user is an admin
+        if(userInfo && userInfo.isAdmin){
+            dispatch(listUsers())
+        }
+        //if no user is logged-in, or the logged-in user isnt an admin
+        else{
+            navigate('/login')
+        }
+    }, [dispatch, navigate, successDelete])
+
+
+    const deleteHandler = (id) => {
+        const confirmDelete = window.confirm('You are about to delete this user from the system');
+        if (confirmDelete) {
+          dispatch(deleteUser(id));
+        }
+      };
+      
     
 
 
