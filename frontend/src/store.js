@@ -10,7 +10,8 @@ import { userLoginReducer,
          userDetailsReducer,
          userUpdateProfileReducer,
          userListReducer,
-         userDeleteReducer} from './reducers/userReducers.js'
+         userDeleteReducer,
+         userUpdateReducer} from './reducers/userReducers.js'
 import {orderCreateReducer,
         orderDetailsReducer,
         orderPayReducer, 
@@ -37,6 +38,7 @@ const reducer = combineReducers({
     userUpdateProfile: userUpdateProfileReducer,
     userList: userListReducer,
     userDelete: userDeleteReducer,
+    userUpdate: userUpdateReducer,
     orderCreate: orderCreateReducer,
     orderDetails: orderDetailsReducer,
     orderPay: orderPayReducer,

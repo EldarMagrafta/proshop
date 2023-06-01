@@ -38,9 +38,9 @@ export const login = (email, password) => async (dispatch) =>{
 
 export const logout = (navigate) => (dispatch) =>{
     localStorage.removeItem('userInfo')
-    dispatch({ type : "USER_LOGOUT"})
+    dispatch({ type: "USER_LOGOUT"})
     dispatch({ type: "USER_DETAILS_RESET"})
-    dispatch({ type : "ORDER_LIST_MY_RESET"})
+    dispatch({ type: "ORDER_LIST_MY_RESET"})
     dispatch({ type: "CART_CLEAR_SHIPPING_ADDRESS"})
     dispatch({ type: "USER_LIST_RESET" })
     dispatch({ type: "USER_REGISTER_RESET" })
@@ -194,6 +194,36 @@ export const deleteUser = (id) => async (dispatch, getState) =>{
     }
     catch(error){
         dispatch({type : "USER_DELETE_FAIL" ,
+        payload: error.response && error.response.data.message ?
+           error.response.data.message :
+           error.message
+       })
+    }
+}
+
+export const updateUser = (user) => async (dispatch, getState) =>{
+    try{
+        dispatch({type: "USER_UPDATE_REQUEST"})
+
+        const userLogin = getState().userLogin;
+        const userInfo = userLogin.userInfo;
+
+        const config = {
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${userInfo.token}`
+            }
+        }
+
+        const {data} = await axios.put(`/api/users/${user._id}`, user, config)
+
+        dispatch({type: "USER_UPDATE_SUCCESS"})
+
+        dispatch({type: "USER_DETAILS_SUCCESS" , payload: data})
+
+    }
+    catch(error){
+        dispatch({type : "USER_UPDATE_FAIL" ,
         payload: error.response && error.response.data.message ?
            error.response.data.message :
            error.message
