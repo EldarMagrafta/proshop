@@ -29,19 +29,33 @@ when an action is dispatched, the Redux store calls ALL the reducers that were c
 Each reducer checks if the action matches any of its cases, and if it does, the reducer updates the relevant part of the state and returns the new state object.
 */
 const reducer = combineReducers({
+    //contains information about the products in the website
     productList : productListReducer,
+    //stores details about a specific product
     productDetails : productDetailsReducer,
+    //contains information about the items in the cart and the shipping address
     cart : cartReducer,
+    //holds information about the currently logged-in user. 
     userLogin : userLoginReducer,
+    //holds information about the user who registered to the website 
     userRegister: userRegisterReducer,
-    userDetails: userDetailsReducer,
+    //filled with details about the user when he navigate to his profile page
+    userDetails : userDetailsReducer,
+    //contains the new details of the user which he want to update to
     userUpdateProfile: userUpdateProfileReducer,
+    //contains a list of all registered users
     userList: userListReducer,
+    //used to indicate success/faliure in user deletion
     userDelete: userDeleteReducer,
+    //used to indicate success/faliure in user details-update
     userUpdate: userUpdateReducer,
+    //represent an order that was created. contaions the fields: loadind, success, and order (which contains orderItems, shippingAddress, PaymentMethod and more)
     orderCreate: orderCreateReducer,
+    //stores details about a specific order. 
     orderDetails: orderDetailsReducer,
+    //used to indicate success/faliure in order payment
     orderPay: orderPayReducer,
+    //represents the list of orders of the logged-in user. 
     orderListMy: orderListMyreducer,
     
 })
