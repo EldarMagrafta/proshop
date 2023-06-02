@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import MessageComp from '../components/MessageComp';
 import LoaderComp from '../components/LoaderComp';
-import { listProducts } from '../actions/productActions';
+import { listProducts, deleteProduct } from '../actions/productActions';
 import { useNavigate } from 'react-router-dom';
 
 function ProductListScreen() {
@@ -13,6 +13,12 @@ function ProductListScreen() {
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
+
+  const productDelete = useSelector((state) => state.productDelete);
+  const loadingDelete = productDelete.loading
+  const errorDelete = productDelete.error
+  const successDelete = productDelete.success
+ 
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -26,13 +32,13 @@ function ProductListScreen() {
     else {
       navigate('/login');
     }
-  }, [dispatch, navigate, userInfo]);
+  }, [dispatch, navigate, userInfo, successDelete]);
 
   const deleteHandler = (id) => {
-    const confirmDelete = window.confirm(
-      'You are about to delete this user from the system'
-    );
-    // DELETE PRODUCT
+    const confirmDelete = window.confirm('You are about to delete this product');
+    if(confirmDelete){
+      dispatch(deleteProduct(id))
+    }
   };
 
   const createProductHandler = (product) => {
@@ -51,6 +57,8 @@ function ProductListScreen() {
           </Button>
         </Col>
       </Row>
+      {loadingDelete && <LoaderComp/>}
+      {errorDelete && <MessageComp variant='danger'>{errorDelete}</MessageComp>}
       {loading ? (
         <LoaderComp />
       ) : error ? (

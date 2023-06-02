@@ -3,7 +3,7 @@ import { createStore , combineReducers , applyMiddleware } from 'redux'
 
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
-import { productListReducer , productDetailsReducer } from './reducers/productReducers.js'
+import { productListReducer , productDetailsReducer, productDeletesReducer } from './reducers/productReducers.js'
 import { cartReducer } from './reducers/cartReducers.js'
 import { userLoginReducer,
          userRegisterReducer,
@@ -15,7 +15,7 @@ import { userLoginReducer,
 import {orderCreateReducer,
         orderDetailsReducer,
         orderPayReducer, 
-        orderListMyreducer} from './reducers/orderReducers.js'
+        orderListMyreducer,} from './reducers/orderReducers.js'
 
 //This is JavaScript code that creates a Redux store, which is used to manage the state of an application
 
@@ -38,25 +38,27 @@ const reducer = combineReducers({
     //holds information about the currently logged-in user. 
     userLogin : userLoginReducer,
     //holds information about the user who registered to the website 
-    userRegister: userRegisterReducer,
+    userRegister : userRegisterReducer,
     //filled with details about the user when he navigate to his profile page
     userDetails : userDetailsReducer,
     //contains the new details of the user which he want to update to
     userUpdateProfile: userUpdateProfileReducer,
     //contains a list of all registered users
-    userList: userListReducer,
+    userList : userListReducer,
     //used to indicate success/faliure in user deletion
-    userDelete: userDeleteReducer,
+    userDelete : userDeleteReducer,
     //used to indicate success/faliure in user details-update
-    userUpdate: userUpdateReducer,
+    userUpdate : userUpdateReducer,
     //represent an order that was created. contaions the fields: loadind, success, and order (which contains orderItems, shippingAddress, PaymentMethod and more)
-    orderCreate: orderCreateReducer,
+    orderCreate : orderCreateReducer,
     //stores details about a specific order. 
-    orderDetails: orderDetailsReducer,
+    orderDetails : orderDetailsReducer,
     //used to indicate success/faliure in order payment
-    orderPay: orderPayReducer,
+    orderPay : orderPayReducer,
     //represents the list of orders of the logged-in user. 
-    orderListMy: orderListMyreducer,
+    orderListMy : orderListMyreducer,
+    //used to indicate success/faliure in product deletion
+    productDelete : productDeletesReducer
     
 })
 
