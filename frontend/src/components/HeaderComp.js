@@ -69,10 +69,10 @@ function HeaderComp() {
                      <NavDropdown.Item><i className="fas fa-user"></i> Users </NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to='/admin/productlist'>
-                     <NavDropdown.Item><i className="fas fa-user"></i> Products </NavDropdown.Item>
+                     <NavDropdown.Item><i className="fas fa-tags"></i> Products </NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to='/admin/orderlist'>
-                     <NavDropdown.Item><i className="fas fa-user"></i> Orders </NavDropdown.Item>
+                     <NavDropdown.Item><i className="fas fa-table"></i> Orders </NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
               )

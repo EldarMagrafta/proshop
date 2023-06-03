@@ -3,7 +3,7 @@ import { createStore , combineReducers , applyMiddleware } from 'redux'
 
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
-import { productListReducer , productDetailsReducer, productDeletesReducer } from './reducers/productReducers.js'
+import { productListReducer , productDetailsReducer, productDeletesReducer, productCreateReducer } from './reducers/productReducers.js'
 import { cartReducer } from './reducers/cartReducers.js'
 import { userLoginReducer,
          userRegisterReducer,
@@ -58,8 +58,9 @@ const reducer = combineReducers({
     //represents the list of orders of the logged-in user. 
     orderListMy : orderListMyreducer,
     //used to indicate success/faliure in product deletion
-    productDelete : productDeletesReducer
-    
+    productDelete : productDeletesReducer,
+    //contain information about a sample product that was created
+    productCreate : productCreateReducer  
 })
 
 

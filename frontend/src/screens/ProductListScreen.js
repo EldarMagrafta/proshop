@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { Table, Button, Row, Col } from 'react-bootstrap';
+import { Table, Button, Row, Col, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import MessageComp from '../components/MessageComp';
 import LoaderComp from '../components/LoaderComp';
-import { listProducts, deleteProduct } from '../actions/productActions';
+import { listProducts, deleteProduct, createProduct } from '../actions/productActions';
 import { useNavigate } from 'react-router-dom';
 
 function ProductListScreen() {
@@ -18,21 +18,35 @@ function ProductListScreen() {
   const loadingDelete = productDelete.loading
   const errorDelete = productDelete.error
   const successDelete = productDelete.success
+
+  const productCreate = useSelector((state) => state.productCreate);
+  const loadingCreate = productCreate.loading
+  const errorCreate = productCreate.error
+  const successCreate = productCreate.success
+  const createdProduct = productCreate.product
  
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    // If the logged-in user is an admin
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts());
-    }
+    // dispatch({type: "PRODUCT_CREATE_RESET"})
+
     // If no user is logged-in or the logged-in user isn't an admin
-    else {
+    if (!userInfo || (userInfo && !userInfo.isAdmin)) {
       navigate('/login');
+      // return
     }
-  }, [dispatch, navigate, userInfo, successDelete]);
+    //if a sample product was successfuly created, redirect to edit it
+    if(successCreate){
+      dispatch({type: "PRODUCT_CREATE_RESET"})
+      navigate(`/admin/product/${createdProduct._id}/edit`)
+    }
+    //if the logged-in user is an admin
+    else {
+      dispatch(listProducts())
+    }
+  }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct]);
 
   const deleteHandler = (id) => {
     const confirmDelete = window.confirm('You are about to delete this product');
@@ -41,8 +55,8 @@ function ProductListScreen() {
     }
   };
 
-  const createProductHandler = (product) => {
-    // CREATE PRODUCT
+  const createProductHandler = () => {
+    dispatch(createProduct())
   };
 
   return (
@@ -59,6 +73,8 @@ function ProductListScreen() {
       </Row>
       {loadingDelete && <LoaderComp/>}
       {errorDelete && <MessageComp variant='danger'>{errorDelete}</MessageComp>}
+      {loadingCreate && <LoaderComp/>}
+      {errorCreate && <MessageComp variant='danger'>{errorCreate}</MessageComp>}
       {loading ? (
         <LoaderComp />
       ) : error ? (
@@ -68,6 +84,7 @@ function ProductListScreen() {
           <thead>
             <tr>
               <th>ID</th>
+              <th>IMAGE</th>
               <th>NAME</th>
               <th>PRICE</th>
               <th>CATEGORY</th>
@@ -80,6 +97,7 @@ function ProductListScreen() {
             {products.map((product) => (
               <tr key={product._id}>
                 <td>{product._id}</td>
+                <td style={{ width: '100px' }}><Image src={product.image} alt={product.name} fluid rounded></Image></td>
                 <td>{product.name}</td>
                 <td>${product.price}</td>
                 <td>{product.category}</td>

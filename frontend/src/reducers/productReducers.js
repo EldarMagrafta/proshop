@@ -17,9 +17,9 @@ export const productListReducer = (state = {products : [] } , action) =>{
         case 'PRODUCT_LIST_REQUEST':
             return {loading : true , products: []}
         case 'PRODUCT_LIST_SUCCESS':
-            return{loading: false , products: action.payload}
+            return {loading: false , products: action.payload}
         case 'PRODUCT_LIST_FAIL':
-            return{loading: false , error: action.payload}
+            return {loading: false , error: action.payload}
         default:
             return state
     }
@@ -42,9 +42,9 @@ export const productDetailsReducer = (state = {product : { reviews: [] } } , act
         case 'PRODUCT_DETAILS_REQUEST':
             return {...state , loading : true }
         case 'PRODUCT_DETAILS_SUCCESS':
-            return{ loadind: false , product: action.payload}
+            return {loadind: false , product: action.payload}
         case 'PRODUCT_DETAILS_FAIL':
-            return{ loadind: false , error: action.payload}
+            return {loadind: false , error: action.payload}
         default:
             return state
     }
@@ -56,9 +56,24 @@ export const productDeletesReducer = (state = {} , action) =>{
         case 'PRODUCT_DELETE_REQUEST':
             return {loading : true }
         case 'PRODUCT_DELETE_SUCCESS':
-            return{ loadind: false , success: true}
+            return {loadind: false , success: true}
         case 'PRODUCT_DELETE_FAIL':
-            return{ loadind: false , error: action.payload}
+            return {loadind: false , error: action.payload}
+        default:
+            return state
+    }
+}
+
+export const productCreateReducer = (state = {} , action) =>{
+    switch(action.type){
+        case 'PRODUCT_CREATE_REQUEST':
+            return {loading : true }
+        case 'PRODUCT_CREATE_SUCCESS':
+            return {loadind: false , success: true, product: action.payload}
+        case 'PRODUCT_CREATE_FAIL':
+            return {loadind: false , error: action.payload}
+        case 'PRODUCT_CREATE_RESET':
+            return {}
         default:
             return state
     }

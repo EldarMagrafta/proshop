@@ -70,3 +70,32 @@ export const deleteProduct = (id) => async (dispatch, getState) =>{
 
     }
 }
+
+
+export const createProduct = () => async (dispatch, getState) =>{
+    try{
+        dispatch({type: "PRODUCT_CREATE_REQUEST"})
+
+        const userLogin = getState().userLogin;
+        const userInfo = userLogin.userInfo;
+
+        const config = {
+            headers: {
+                'Authorization' : `Bearer ${userInfo.token}`
+            }
+        }
+        //passing an empty object as request body because its a post request, but we dont have data to pass to it
+        const {data} = await axios.post(`/api/products`, {}, config)
+
+        //data is an object of a sample product. we pass this sample product as payload
+        dispatch({type: "PRODUCT_CREATE_SUCCESS", payload: data})
+    }
+    catch(error){
+        dispatch({type : "PRODUCT_CREATE_FAIL" ,
+        payload: error.response && error.response.data.message ?
+           error.response.data.message :
+           error.message
+       })
+    }
+}
+
