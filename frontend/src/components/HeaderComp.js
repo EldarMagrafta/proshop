@@ -64,7 +64,7 @@ function HeaderComp() {
                </LinkContainer>)}
             {
               userInfo && userInfo.isAdmin && 
-              (<NavDropdown title='Admin' id='adminmenu'>
+              (<NavDropdown title='Admin Menu' id='adminmenu'>
                   <LinkContainer to='/admin/userlist'>
                      <NavDropdown.Item><i className="fas fa-user"></i> Users </NavDropdown.Item>
                   </LinkContainer>

@@ -2,9 +2,17 @@ import { createStore , combineReducers , applyMiddleware } from 'redux'
 // import { configureStore } from '@reduxjs/toolkit';
 
 import thunk from 'redux-thunk'
+
 import {composeWithDevTools} from 'redux-devtools-extension'
-import { productListReducer , productDetailsReducer, productDeletesReducer, productCreateReducer } from './reducers/productReducers.js'
+
+import { productListReducer, 
+         productDetailsReducer, 
+         productDeletesReducer, 
+         productCreateReducer,
+         productUpdateReducer } from './reducers/productReducers.js'
+
 import { cartReducer } from './reducers/cartReducers.js'
+
 import { userLoginReducer,
          userRegisterReducer,
          userDetailsReducer,
@@ -12,6 +20,7 @@ import { userLoginReducer,
          userListReducer,
          userDeleteReducer,
          userUpdateReducer} from './reducers/userReducers.js'
+
 import {orderCreateReducer,
         orderDetailsReducer,
         orderPayReducer, 
@@ -60,7 +69,9 @@ const reducer = combineReducers({
     //used to indicate success/faliure in product deletion
     productDelete : productDeletesReducer,
     //contain information about a sample product that was created
-    productCreate : productCreateReducer  
+    productCreate : productCreateReducer,
+    //contains the new details of the product which we want to update to them
+    productUpdate : productUpdateReducer
 })
 
 
