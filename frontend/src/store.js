@@ -24,7 +24,8 @@ import { userLoginReducer,
 import {orderCreateReducer,
         orderDetailsReducer,
         orderPayReducer, 
-        orderListMyreducer,} from './reducers/orderReducers.js'
+        orderListMyreducer,
+        orderListReducer} from './reducers/orderReducers.js'
 
 //This is JavaScript code that creates a Redux store, which is used to manage the state of an application
 
@@ -71,7 +72,9 @@ const reducer = combineReducers({
     //contain information about a sample product that was created
     productCreate : productCreateReducer,
     //contains the new details of the product which we want to update to them
-    productUpdate : productUpdateReducer
+    productUpdate : productUpdateReducer,
+    //represents the list of orders of all users in the website
+    orderList : orderListReducer
 })
 
 

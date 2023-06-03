@@ -22,7 +22,6 @@ const ProductEditScreen = () => {
     const [price, setPrice] = useState(0)
     const [countInStock, setCountInStock] = useState(0)
     const [uploading, setUploading] = useState(false)
-    const [published, setPublished] = useState(false)
     const [uploaded, setUploaded] = useState(false)
   
     const dispatch = useDispatch();
@@ -40,13 +39,11 @@ const ProductEditScreen = () => {
     useEffect(() => {
         //throw unauthorized users back to homepage
         if (!userInfo || (userInfo && !userInfo.isAdmin)) {
-            // console.log("11111")
             navigate('/')
             return
         }
         //if an update of the product details was made successfully
         if (successUpdate) {
-            // console.log("22222")
             dispatch({ type: "PRODUCT_UPDATE_RESET" }) //Resetting "productUpdate" slice after a successful update, ensures the component is ready for future updates later
             navigate('/admin/productlist')
 
@@ -60,7 +57,6 @@ const ProductEditScreen = () => {
                 dispatch(listProductDetails(productId))
             }
             else {
-                // console.log("44444")
                 setName(product.name)
                 setImage(product.image)
                 setBrand(product.brand)
@@ -87,9 +83,7 @@ const ProductEditScreen = () => {
           }
     
           const { data } = await axios.post('/api/upload', formData, config)
-        //   console.log("TTTTTTTTTTTTTTT")
-          const desiredPart = data.slice(data.indexOf('/images'));
-        //   console.log(data)
+          const desiredPart = data.slice(data.indexOf('/images')) //extract the part of the path from '/images' to the end
           setImage(desiredPart)
     
           setTimeout(() => {
