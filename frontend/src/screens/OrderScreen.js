@@ -6,7 +6,7 @@ import { Button, Row, Col, ListGroup, Image, Card, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import MessageComp from '../components/MessageComp.js'
 import { addToCart, removeFromCart } from '../actions/cartActions'
-import { getOrderDetails, payOrder } from '../actions/orderActions.js'
+import { getOrderDetails, payOrder, deliverOrder } from '../actions/orderActions.js'
 import LoaderComp from '../components/LoaderComp.js'
 import NoticeComp from '../components/NoticeComp.js'
 // import '../index.css'
@@ -27,6 +27,11 @@ const OrderScreen = () => {
   const orderPay = useSelector((state) => state.orderPay);
   const loadingPay = orderPay.loading;
   const successPay = orderPay.success;
+
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const loadingDeliver = orderDeliver.loading;
+  const successDeliver = orderDeliver.success;
+
   
 
 //   useEffect(() => {
@@ -55,7 +60,6 @@ const OrderScreen = () => {
   }
 
   useEffect(() => {
-      // addPayPalScript()
       /*
       if order is falsy or not yet available, it indicates that the order details have not been fetched yet.
       In such cases, the getOrderDetails action is dispatched to fetch the order details using the orderId.
