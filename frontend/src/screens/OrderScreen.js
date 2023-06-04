@@ -24,6 +24,9 @@ const OrderScreen = () => {
   const orderDetails = useSelector((state) => state.orderDetails)
   const { loading, error, order } = orderDetails
 
+  const userLogin = useSelector(state => state.userLogin)
+  const userInfo = userLogin.userInfo;
+
   const orderPay = useSelector((state) => state.orderPay);
   const loadingPay = orderPay.loading;
   const successPay = orderPay.success;
@@ -67,7 +70,7 @@ const OrderScreen = () => {
       If successPay is true, it implies that the order has been paid.
       In such cases, the getOrderDetails action is dispatched to fetch the updated order details.
       */
-      if(!order || successPay || order._id !== orderId){
+      if(!order || successPay || successDeliver || order._id !== orderId){
         dispatch({ type: "ORDER_PAY_RESET" })
         dispatch({ type: "ORDER_DELIVER_RESET" })
         dispatch(getOrderDetails(orderId))
@@ -81,11 +84,15 @@ const OrderScreen = () => {
         }
 
       }
-    }, [order, orderId, successPay])
+    }, [order, orderId, successPay, successDeliver])
 
     const successPaymentHandler = (paymentResult) =>{
       console.log(paymentResult)
       dispatch(payOrder(orderId , paymentResult))
+    }
+
+    const deliverHandler = () =>{
+      dispatch(deliverOrder(order))
     }
 
   return (
@@ -122,7 +129,7 @@ const OrderScreen = () => {
             </Row>
               <br/>
               {
-                    order.isDelivered ? ( <MessageComp variant='success'> <div style={{ margin: 'auto', width: 'fit-content' }}>Delivered on: {order.deliveredAt}</div></MessageComp>) : 
+                    order.isDelivered ? ( <MessageComp variant='success'> <div style={{ margin: 'auto', width: 'fit-content' }}>Delivered on: {order.deliveredAt} </div></MessageComp>) : 
                     (
                     <MessageComp variant='danger'>
                     <div style={{ margin: 'auto', width: 'fit-content' }}>Not Delivered</div>
@@ -136,7 +143,7 @@ const OrderScreen = () => {
                 {order.paymentMethod === 'PayPal' && <Image src="/images/paypal.png" alt="PayPal" className="paypal-img" />}
                 </p>
                 {
-                order.isPaid ? <MessageComp variant='success'><div style={{ margin: 'auto', width: 'fit-content' }}>Paid at:{order.paidAt}</div></MessageComp> :
+                order.isPaid ? <MessageComp variant='success'><div style={{ margin: 'auto', width: 'fit-content' }}>Paid at: {order.paidAt}</div></MessageComp> :
                         <MessageComp variant='danger'> <div style={{ margin: 'auto', width: 'fit-content' }}>Not Paid</div></MessageComp>
                 }
             </ListGroup.Item>
@@ -237,18 +244,21 @@ const OrderScreen = () => {
                   {!order.isPaid && (<ListGroup.Item>
                   {loadingPay && <LoaderComp/>}
                   {!sdkReady ? <LoaderComp/> : (
+                    //The amount prop in the <PayPalButton> component is used to specify the total amount that needs to be paid by the user.
                     <PayPalButton amount = {order.totalPrice} onSuccess={successPaymentHandler}/>
                   )}
                 </ListGroup.Item>
                 )}
+                {
+                  userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                    <ListGroup.Item>
+                      <Button type ='button' className='btn btn-block' onClick={deliverHandler}>
+                        Mark As Delivered
+                      </Button>
+                    </ListGroup.Item>
+                  )
+                }
                 </ListGroup.Item>
-                {/* {!order.isPaid && (<ListGroup.Item>
-                  {loadingPay && <LoaderComp/>}
-                  {!sdkReady ? <LoaderComp/> : (
-                    <PayPalButton amount = {order.totalPrice} onSuccess={successPaymentHandler}/>
-                  )}
-                </ListGroup.Item>
-                )} */}
               </ListGroup>
             </Card>
           </Col>
