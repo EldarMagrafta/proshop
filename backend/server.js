@@ -4,7 +4,8 @@
 import path from 'path'
 import express from 'express';
 import dotenv from 'dotenv';
-import colors from 'colors'
+import colors from 'colors';
+import morgan from 'morgan';
 import { notFound , errorHandler} from './middleware/errorMiddleware.js';
 import connectDB from './config/db.js';
 // import products from './data/products.js';
@@ -15,6 +16,7 @@ import uploadRoutes from './routes/uploadRoutes.js'
 
 
 
+
 // Load environment variables from a ".env" file into process.env making them available to the Node.js application
 dotenv.config();
 
@@ -22,6 +24,13 @@ connectDB()
 
 // Create a new instance of the Express application and assign it to the constant variable 'app'
 const app = express();
+
+//morgan is an HTTP request logger middleware for Node.js. It logs to the console information about incoming requests to the server
+if(process.env.NODE_ENV === 'development'){
+    app.use(morgan('dev'))
+}
+
+
 
 //the express.json() middleware function is used to parse the incoming request body as JSON and populate the req.body object with the parsed data
 app.use(express.json())
