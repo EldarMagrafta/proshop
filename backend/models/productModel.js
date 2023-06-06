@@ -2,14 +2,15 @@ import mongoose from 'mongoose'
 
 const reviewSchema = mongoose.Schema(
   {
-    name: { type: String, required: true },
-    rating: { type: Number, required: true },
-    comment: { type: String, required: true },
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
+    //the user that posted this review
+    user: {  
+      type: mongoose.Schema.Types.ObjectId, //The type of `user` field is "document in the database" (not String, Number etc), the syntax of this is "mongoose.Schema.Types.ObjectId"
       required: true,
       ref: 'User',
     },
+    name: { type: String, required: true },
+    rating: { type: Number, required: true },
+    comment: { type: String, required: true },
   },
   {
     timestamps: true,
@@ -18,11 +19,10 @@ const reviewSchema = mongoose.Schema(
 
 const productSchema = mongoose.Schema(
   {
+    //the user that created this product (he must be an admin)
     user: {  
-      // The type of `user` field is "document in the database" (not String, Number etc), the syntax of this is "mongoose.Schema.Types.ObjectId"
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId, //The type of `user` field is "document in the database" (not String, Number etc), the syntax of this is "mongoose.Schema.Types.ObjectId"
       required: true,
-      // The `user` field should be populated with documents from the `users` collection using the `User` model.
       ref: 'User',
     },
     name: {
