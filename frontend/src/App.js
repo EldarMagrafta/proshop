@@ -28,7 +28,7 @@ function App() {
           <main className="py-3">
             <Container>
                 <Routes>
-                    <Route path="/" element={<HomeScreen/>} > </Route>
+                    <Route path="/" element={<HomeScreen/>} exact> </Route>
                     <Route path="/product/:id" element={<ProductScreen/>} > </Route>
                     <Route path="/cart/:id?" element={<CartScreen/>} > </Route>
                     <Route path="/login" element={<LoginScreen/>} > </Route>
@@ -43,7 +43,7 @@ function App() {
                     <Route path="/admin/product/:id/edit" element = {<ProductEditScreen/>}> </Route>
                     <Route path="/admin/productlist" element = {<ProductListScreen/>}> </Route>
                     <Route path="/admin/orderlist" element = {<OrderListScreen/>}> </Route>
-                   
+                    <Route path='/search/:keyword' element={<HomeScreen/>}> </Route>
                 </Routes>
             </Container>
           

@@ -1,10 +1,12 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {LinkContainer} from 'react-router-bootstrap'
 import {Container, Nav, Navbar , NavDropdown} from 'react-bootstrap'
 import { logout } from '../actions/userActions.js'
 import { useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
+import SearchBoxComp from './SearchBoxComp.js'
 
 
 
@@ -40,6 +42,7 @@ function HeaderComp() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         <Navbar.Collapse id="basic-navbar-nav">
+          <SearchBoxComp/>
           <Nav className="ml-auto">
 
             <LinkContainer to='/cart'>
