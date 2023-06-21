@@ -10,9 +10,9 @@ function RatingComp({score , numOfReviews}) {
     if (Math.round(score) > Math.floor(score) ){ //if the fractional part of "score" is >= 0.5
         stars.push(<i key={"half-star"} style={{color : 'red'}} className='fas fa-star-half-alt'></i>);
     }
-    if (score < 0.5){
-        stars.push(<i  key= {"empty-star"} style={{color : 'red'}} className='far fa-star'></i>);
-    }
+    // if (score < 0.5){
+    //     stars.push(<i  key= {"empty-star"} style={{color : 'red'}} className='far fa-star'></i>);
+    // }
 
 
 
@@ -21,7 +21,7 @@ function RatingComp({score , numOfReviews}) {
     <div className='rating'>
 
         {stars} {score}<br/>
-        ({numOfReviews} reviews)
+        {/* ({numOfReviews} reviews) */}
 
    </div>
       

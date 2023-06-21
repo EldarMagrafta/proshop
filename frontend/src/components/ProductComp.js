@@ -26,6 +26,7 @@ function ProductComp({product}) { //Destructuring props
             
             <Card.Text as='div'> {/*the as='div' is instead of the default <p> that generates validateDOMNesting warning. */}
                   <RatingComp score={product.rating} numOfReviews={product.numReviews}/>
+                  ({product.numReviews} reviews)
             </Card.Text>
               
             <Card.Text as ='h3'> ${product.price} </Card.Text>
