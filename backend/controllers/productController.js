@@ -13,10 +13,19 @@ then, the wrapped function is saved into the variable "getProducts".
 meaning, the name "getProducts" refers to the anonymous-async-function wrapped with error-handling.
 */
 const getProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find({})
-    return res.json(products)
+    let keyword = {};
+    if (req.query.keyword) { //if the query string of the request URL  contains a parameter named "keyword"
+        keyword = {
+            name: {
+                $regex: req.query.keyword, //The regular expression will find any occurrence of the keyword within the name field.
+                $options: 'i' //case-insensitive regular expression match.
+            }
+        };
+    }
+    const products = await Product.find({...keyword});
+    return res.json(products);
+});
 
-})
 
 /* 
 @desc     Fetch single product.

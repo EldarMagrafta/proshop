@@ -1,5 +1,6 @@
 import React , {useEffect}  from 'react'
 import {useDispatch , useSelector} from 'react-redux'
+import { useParams } from 'react-router-dom';
 import {Row, Col} from 'react-bootstrap'
 import ProductComp from '../components/ProductComp'
 import LoaderComp from '../components/LoaderComp'
@@ -19,6 +20,8 @@ const HomeScreen = () => {
   //The useDispatch hook is used to get the dispatch function from the Redux store, which can be used to dispatch actions to the store.
   const dispatch = useDispatch()
 
+  const {keyword} = useParams();
+
   //takes a function as its argument that selects a specific slice of the state from the Redux store, and returns the current value of that slice.
   const productList = useSelector(state => state.productList)
 
@@ -32,8 +35,8 @@ const HomeScreen = () => {
    * its have to do with some things about useCallbacks, But because the dispatch function is not likely to change frequently during the lifetime of the component, the effect function will likely only run once after the initial render cycle.
   */
   useEffect(() => {
-    dispatch(listProducts())
-  }, [dispatch]);
+    dispatch(listProducts(keyword))
+  }, [dispatch, keyword]);
 
   
 
