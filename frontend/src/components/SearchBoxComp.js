@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 const SearchBoxComp = () => {
   const navigate = useNavigate();
-  const { keyword: urlKeyword } = useParams();
+  // const params = useParams();
+  // const urlKeyword = params.keyword;
+
 
   // FIX: uncontrolled input - urlKeyword may be undefined
-  const [keyword, setKeyword] = useState(urlKeyword || '');
+  const [keyword, setKeyword] = useState('');
 
   const submitHandler = (e) => {
     e.preventDefault();
