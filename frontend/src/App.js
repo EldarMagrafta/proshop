@@ -28,8 +28,10 @@ function App() {
           <main className="py-3">
             <Container>
                 <Routes>
-                    <Route path='/search/:keyword' element={<HomeScreen/>}> </Route>
-                    <Route path="/" element={<HomeScreen/>} exact> </Route>
+                    <Route path='/search/:keyword' element={<HomeScreen/>} exact />
+                    <Route path='/page/:pageNumber' element={<HomeScreen/>} exact />
+                    <Route path='/search/:keyword/page/:pageNumber'element={<HomeScreen/>} exact/>
+                    <Route path='/' element={<HomeScreen/>} exact />
                     <Route path="/product/:id" element={<ProductScreen/>} > </Route>
                     <Route path="/cart/:id?" element={<CartScreen/>} > </Route>
                     <Route path="/login" element={<LoginScreen/>} > </Route>
@@ -42,7 +44,8 @@ function App() {
                     <Route path="/admin/userlist" element = {<UserListScreen/>}> </Route>
                     <Route path="/admin/user/:id/edit" element = {<UserEditScreen/>}> </Route>
                     <Route path="/admin/product/:id/edit" element = {<ProductEditScreen/>}> </Route>
-                    <Route path="/admin/productlist" element = {<ProductListScreen/>}> </Route>
+                    <Route path="/admin/productlist" element = {<ProductListScreen/>} exact> </Route>
+                    <Route path="/admin/productlist/:pageNumber" element = {<ProductListScreen/>} exact> </Route>
                     <Route path="/admin/orderlist" element = {<OrderListScreen/>}> </Route>
                 </Routes>
             </Container>

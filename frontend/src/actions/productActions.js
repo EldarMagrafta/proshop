@@ -11,10 +11,10 @@ import axios from 'axios'
 * This `listProducts` function is used to retrieve the list of products from a server and store them in the Redux store. 
 * The Redux reducer function `productListReducer` is used to handle the dispatched actions and update the `products` array in the Redux store accordingly.
 */
-export const listProducts = (keyword = '') => async (dispatch)=>{
+export const listProducts = (keyword = '', pageNumber='') => async (dispatch)=>{
     try{
         dispatch({type : 'PRODUCT_LIST_REQUEST'})
-        const {data} = await axios.get(`/api/products?keyword=${keyword}`)
+        const {data} = await axios.get(`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`)
         dispatch({type : 'PRODUCT_LIST_SUCCESS' , payload: data})
     }
     catch(error){

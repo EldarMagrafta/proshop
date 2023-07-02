@@ -13,6 +13,8 @@ then, the wrapped function is saved into the variable "getProducts".
 meaning, the name "getProducts" refers to the anonymous-async-function wrapped with error-handling.
 */
 const getProducts = asyncHandler(async (req, res) => {
+    const pageSize = 10 //maximum number of products for each page
+    const page = Number(req.query.pageNumber) || 1
     let keyword = {};
     if (req.query.keyword) { //if the query string of the request URL  contains a parameter named "keyword"
         keyword = {
@@ -22,8 +24,9 @@ const getProducts = asyncHandler(async (req, res) => {
             }
         };
     }
-    const products = await Product.find({...keyword});
-    return res.json(products);
+    const count = await Product.countDocuments({...keyword}) //total number of products that match the search keyword. if there is no keyword, count will be equal to the number of total products in our shop
+    const products = await Product.find({...keyword}).limit(pageSize).skip(pageSize * (page-1)) //The skip() method is used to skip a certain number of products based on the current page number
+    return res.json({products, page, pages: Math.ceil(count/pageSize)});
 });
 
 

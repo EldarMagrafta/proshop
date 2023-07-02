@@ -13,6 +13,7 @@ import SearchBoxComp from './SearchBoxComp.js'
 
 
 
+
 function HeaderComp() {
 
   const dispatch = useDispatch()
@@ -27,6 +28,7 @@ function HeaderComp() {
 
   return (
     <header>
+
       <Navbar bg="dark" variant='dark' expand="lg" collapseOnSelect>
       <Container>
 

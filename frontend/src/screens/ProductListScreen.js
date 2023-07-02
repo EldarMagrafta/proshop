@@ -2,17 +2,22 @@ import React, { useEffect } from 'react';
 import { Table, Button, Row, Col, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import MessageComp from '../components/MessageComp';
 import LoaderComp from '../components/LoaderComp';
+import PaginateComp from '../components/PaginateComp';
 import { listProducts, deleteProduct, createProduct } from '../actions/productActions';
 import { useNavigate } from 'react-router-dom';
 
 function ProductListScreen() {
+
+  const params = useParams();
+  const pageNumber = params.pageNumber || 1 //if params.pageNumber is undefined or falsy, it assigns the default value of 1 to pageNumber.
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products, page, pages } = productList;
 
   const productDelete = useSelector((state) => state.productDelete);
   const loadingDelete = productDelete.loading
@@ -44,9 +49,9 @@ function ProductListScreen() {
     }
     //if the logged-in user is an admin
     else {
-      dispatch(listProducts())
+      dispatch(listProducts('', pageNumber))
     }
-  }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct]);
+  }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct, pageNumber]);
 
   const deleteHandler = (id) => {
     const confirmDelete = window.confirm('You are about to delete this product');
@@ -80,6 +85,7 @@ function ProductListScreen() {
       ) : error ? (
         <MessageComp variant='danger'>{error}</MessageComp>
       ) : (
+        <>
         <Table striped bordered hover responsive className='table-sm'>
           <thead>
             <tr>
@@ -122,6 +128,8 @@ function ProductListScreen() {
             ))}
           </tbody>
         </Table>
+        <PaginateComp pages={pages} page={page} isAdmin={true}/>
+        </>
       )}
     </>
   );
