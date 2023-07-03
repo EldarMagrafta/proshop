@@ -67,9 +67,9 @@ function ProductScreen() {
 
   return (
     <>
-      <Link className='btn btn-secondary my-3'  to ="/"> 
-        Go Back
-      </Link>
+ 
+      <Button className='btn btn-secondary my-3' onClick={() => navigate(-1)}>GO BACK </Button>
+
       {
         loading ? <LoaderComp/> :
         error ? <MessageComp variant='danger'/> :

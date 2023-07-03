@@ -46,19 +46,23 @@ const HomeScreen = () => {
     dispatch(listProducts(keyword, pageNumber))
   }, [dispatch, keyword, pageNumber]);
 
+  const searchAndFound = keyword && products.length > 0;
+  const searchAndNotFound = keyword && products.length === 0;
+  const noSearch = !keyword;
+
   
 
   return (
   <>
     
-    {!keyword && <ProductCarouselComp />}
-
-    <h1>Latest Products!!!</h1>
-    
     {
     loading ? <LoaderComp/> : 
+
     error ? <MessageComp variant='danger'>{error}</MessageComp> :
-    <>
+
+    noSearch ? (<>
+      <ProductCarouselComp/>
+      <h1>ALL PRODUCTS</h1>
       <Row>
           {
               products.map((product)=> (
@@ -69,10 +73,27 @@ const HomeScreen = () => {
           }
       </Row>
       <PaginateComp pages={pages} page={page} keyword={keyword ? keyword : ''}/>
-    </>
-    } 
-  </>
-  )
+      </>
+      ) :
+
+    searchAndFound ? (<>
+      <h1>search results for "{keyword}"</h1>
+      <Row>
+          {
+              products.map((product)=> (
+                  <Col key ={product._id} sm={12} md={6} lg={4} xl={3}>
+                      <ProductComp product = {product}/>
+                  </Col>
+              ))
+          }
+      </Row>
+      <PaginateComp pages={pages} page={page} keyword={keyword ? keyword : ''}/>
+    </>):
+
+    searchAndNotFound ? <h1>didnt found items for "{keyword}"</h1> : null
+    
+
+        }</>)
 }
 
 
