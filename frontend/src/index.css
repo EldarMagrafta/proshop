@@ -55,3 +55,35 @@ body {
 main {
   flex-grow: 1;
 }
+
+
+.carousel img {
+  height: 150px;
+  padding: 10px;
+  margin: 10px;
+  margin-left: 200px; /* Adjust the value to move the image to the right */
+  margin-right: auto;
+  
+}
+
+
+.carousel-caption h4 {
+  color: white;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  margin: 1%;
+}
+
+.custom-carousel {
+  border: 3px solid #ccc; /* Border style and color */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Box shadow style and color */
+  background-color: #343a40; /* Replace with your desired background color */
+
+}
+
+
+/* @media (max-width: 900px) {
+  .carousel-caption h2 {
+    font-size: 2.5vw;
+  }
+} */

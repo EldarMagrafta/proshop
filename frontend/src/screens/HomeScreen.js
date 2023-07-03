@@ -7,6 +7,8 @@ import PaginateComp from '../components/PaginateComp';
 import LoaderComp from '../components/LoaderComp'
 import MessageComp from '../components/MessageComp'
 import { listProducts } from '../actions/productActions'
+import ProductCarouselComp from '../components/ProductCarouselComp';
+
 
 
 /*
@@ -48,6 +50,9 @@ const HomeScreen = () => {
 
   return (
   <>
+    
+    {!keyword && <ProductCarouselComp />}
+
     <h1>Latest Products!!!</h1>
     
     {

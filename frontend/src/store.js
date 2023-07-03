@@ -10,7 +10,9 @@ import { productListReducer,
          productDeletesReducer, 
          productCreateReducer,
          productUpdateReducer,
-         productReviewCreateReducer } from './reducers/productReducers.js'
+         productReviewCreateReducer,
+         productTopRatedReducer
+        } from './reducers/productReducers.js'
 
 import { cartReducer } from './reducers/cartReducers.js'
 
@@ -82,7 +84,9 @@ const reducer = combineReducers({
     //used to indicate success/faliure in order deliver
     orderDeliver : orderDeliverReducer,
     //contains information about the product review
-    productReviewCreate : productReviewCreateReducer
+    productReviewCreate : productReviewCreateReducer,
+    //contains the top rated products in the store
+    productTopRated : productTopRatedReducer
 })
 
 

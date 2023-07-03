@@ -18,15 +18,14 @@ const PaginateComp = ({pages, page, isAdmin=false, keyword=''}) => {
       <Pagination>
         {
           pageNumbers.map((x) => {
-          const searchPath = keyword ? `/search/${keyword}/page/${x}` : `/page/${x}`;
-          const adminPath = `/admin/productlist/${x}`;
-          const linkTo = isAdmin ? adminPath : searchPath;
-
-          return (
-            <LinkContainer key={x} to={linkTo}>
-              <Pagination.Item active={x === page}>{x}</Pagination.Item>
-            </LinkContainer>
-          );
+            const searchPath = keyword ? `/search/${keyword}/page/${x}` : `/page/${x}`;
+            const adminPath = `/admin/productlist/${x}`;
+            const linkTo = isAdmin ? adminPath : searchPath;
+            return (
+              <LinkContainer key={x} to={linkTo}>
+                <Pagination.Item active={x === page}>{x}</Pagination.Item>
+              </LinkContainer>
+            );
           })
         }
     </Pagination>
