@@ -57,19 +57,16 @@ main {
 }
 
 
-
-
-/* @media (max-width: 900px) {
-  .carousel-caption h2 {
-    font-size: 2.5vw;
-  }
-} */
+.carousel-item {
+  height: 300px; /* Set the desired fixed height for the carousel items */
+}
 
 .carousel-item-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%; /* Fill the entire height of the carousel item */
 }
 
 .carousel-item-image {
@@ -84,12 +81,15 @@ main {
 .carousel img {
   height: 150px;
   padding: 1px;
-  
 }
 
 .custom-carousel {
-  border: 3px solid #ccc; /* Border style and color */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Box shadow style and color */
-  background-color: #ffffff; /* Replace with your desired background color */
+  border: 3px solid #ccc;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  background-color: #ffffff;
+}
 
+.carousel-control-next,
+.carousel-control-prev {
+  filter: invert(100%);
 }
