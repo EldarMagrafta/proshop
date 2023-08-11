@@ -48,19 +48,23 @@ const __dirname = path.resolve()
 // console.log(path.join(__dirname))
 app.use('/uploads', express.static(path.join(__dirname)))
 
-if(process.env.NODE_ENV === 'production'){
-    // Serve static files from the 'frontend/build' directory
-    app.use(express.static(path.join(__dirname, '/frontend/build')))
-
-    // For all other routes, serve the 'index.html' file
-    app.get('*', (req,res) => 
-        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-    )
-}
-else{
-    // In development mode, respond with a simple message
-    app.get('/' , (req , res) =>{
-        return res.send("API RUNNING...")
+if (process.env.NODE_ENV === 'production') {
+    const __dirname = path.resolve();
+    console.log(__dirname);
+    
+    app.use('/uploads', express.static('uploads'));
+    
+    // Update the path to reach the 'build' folder inside 'frontend'
+    app.use(express.static(path.join(__dirname, '..', 'frontend/build')));
+    
+    const root = path.join(__dirname, '..', 'frontend', 'build', 'index.html')
+    
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(root) , 'index.html')
+    });
+} else {
+    app.get('/', (req, res) => {
+        res.send({ message: 'API is working fine.' });
     })
 }
 
