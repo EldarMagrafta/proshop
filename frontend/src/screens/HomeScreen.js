@@ -1,13 +1,15 @@
 import React , {useEffect}  from 'react'
 import {useDispatch , useSelector} from 'react-redux'
-import { useParams } from 'react-router-dom';
-import {Row, Col} from 'react-bootstrap'
+import { useParams, useNavigate } from 'react-router-dom';
+import {Row, Col, Button} from 'react-bootstrap'
 import ProductComp from '../components/ProductComp'
 import PaginateComp from '../components/PaginateComp';
 import LoaderComp from '../components/LoaderComp'
 import MessageComp from '../components/MessageComp'
 import { listProducts } from '../actions/productActions'
 import ProductCarouselComp from '../components/ProductCarouselComp';
+import MetaComp from '../components/MetaComp';
+
 
 
 
@@ -22,6 +24,8 @@ const HomeScreen = () => {
 
   //The useDispatch hook is used to get the dispatch function from the Redux store, which can be used to dispatch actions to the store.
   const dispatch = useDispatch()
+
+  let navigate = useNavigate();
 
   // const {keyword, pageNumber} = useParams();
 
@@ -54,6 +58,7 @@ const HomeScreen = () => {
 
   return (
   <>
+    <MetaComp/>
     
     {
     loading ? <LoaderComp/> : 
@@ -78,6 +83,7 @@ const HomeScreen = () => {
 
     searchAndFound ? (<>
       <h1>search results for "{keyword}"</h1>
+      <Button className='btn btn-secondary my-3' onClick={() => navigate(-1)}>GO BACK </Button>
       <Row>
           {
               products.map((product)=> (
@@ -90,7 +96,10 @@ const HomeScreen = () => {
       <PaginateComp pages={pages} page={page} keyword={keyword ? keyword : ''}/>
     </>):
 
-    searchAndNotFound ? <h1>didnt found items for "{keyword}"</h1> : null
+    searchAndNotFound ? <>
+    <Button className='btn btn-secondary my-3' onClick={() => navigate(-1)}>GO BACK </Button>
+    <h1>didnt found items for "{keyword}"</h1> </> : null
+    
     
 
         }</>)

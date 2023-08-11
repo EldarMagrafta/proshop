@@ -5,6 +5,7 @@ import RatingComp from '../components/RatingComp'
 import {useDispatch , useSelector} from 'react-redux'
 import { listProductDetails, createProductReview } from '../actions/productActions'
 import LoaderComp from '../components/LoaderComp'
+import MetaComp from '../components/MetaComp'
 import MessageComp from '../components/MessageComp'
 import { addToCart } from '../actions/cartActions'
 
@@ -53,7 +54,7 @@ function ProductScreen() {
   */
   const addToCartHandler = () =>{
     dispatch(addToCart(product._id, qty))
-    alert("item added to cart (replace with toast later)")
+    // alert("item added to cart (replace with toast later)")
     // navigate('/cart')
   }
 
@@ -67,13 +68,13 @@ function ProductScreen() {
 
   return (
     <>
- 
       <Button className='btn btn-secondary my-3' onClick={() => navigate(-1)}>GO BACK </Button>
 
       {
         loading ? <LoaderComp/> :
         error ? <MessageComp variant='danger'/> :
         (<>
+          <MetaComp title={product.name}/>
           <Row>
             <Col md={6}>
               <Image src={product.image} alt={product.name} fluid></Image>
