@@ -1,22 +1,22 @@
 import HeaderComp from "./components/HeaderComp";
-import FooterComp from "./components/FooterComp";
+import FooterComp from "./components/FooterComp.js";
 import {Container} from 'react-bootstrap'
-import HomeScreen from "./screens/HomeScreen";
-import ProductScreen from "./screens/ProductScreen";
-import CartScreen from "./screens/CartScreen";
+import HomeScreen from "./screens/HomeScreen.js";
+import ProductScreen from "./screens/ProductScreen.js";
+import CartScreen from "./screens/CartScreen.js";
 import {Route, Routes} from 'react-router-dom'
-import LoginScreen from "./screens/LoginScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import ShippingScreen from "./screens/ShippingScreen";
-import PaymentScreen from "./screens/PaymentScreen";
-import PlaceOrderScreen from "./screens/PlaceOrderScreen";
-import OrderScreen from "./screens/OrderScreen";
-import UserListScreen from "./screens/UserListScreen";
-import UserEditScreen from "./screens/UserEditScreen";
-import ProductListScreen from "./screens/ProductListScreen";
-import ProductEditScreen from "./screens/ProductEditScreen";
-import OrderListScreen from "./screens/OrderListScreen";
+import LoginScreen from "./screens/LoginScreen.js";
+import RegisterScreen from "./screens/RegisterScreen.js";
+import ProfileScreen from "./screens/ProfileScreen.js";
+import ShippingScreen from "./screens/ShippingScreen.js";
+import PaymentScreen from "./screens/PaymentScreen.js";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen.js";
+import OrderScreen from "./screens/OrderScreen.js";
+import UserListScreen from "./screens/UserListScreen.js";
+import UserEditScreen from "./screens/UserEditScreen.js";
+import ProductListScreen from "./screens/ProductListScreen.js";
+import ProductEditScreen from "./screens/ProductEditScreen.js";
+import OrderListScreen from "./screens/OrderListScreen.js";
 
 
 
